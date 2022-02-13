@@ -21,4 +21,4 @@ file , that is inside src-->main-->java-->com-->example-->server.
 ![image](https://user-images.githubusercontent.com/80175752/153443184-21fcf18e-78bb-4a4d-b896-748fb90728db.png)
 
 
- ##disclaimer : currently the socket allowes only localhost origins from ports 4200 , 4201
+ ## disclaimer : currently the socket allowes only localhost origins from ports 4200 , 4201
