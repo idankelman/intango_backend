@@ -1,7 +1,7 @@
 # intango-backend server
 the backend websocket server of the intango web application
 
-## in order to start running the server ,extract the zipfile called server.rar to your perfered folder , and
+## in order to start running the server : clone the repository 
 from there , start running the server . if you are using vsCode , you can simply press f5 on the ServerApplication.java
 file , that is inside src-->main-->java-->com-->example-->server.
 
