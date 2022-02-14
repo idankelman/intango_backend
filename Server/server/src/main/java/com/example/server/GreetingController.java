@@ -41,7 +41,7 @@ public class GreetingController {
     
     public Square [] Square(int message) throws Exception {
         System.out.println("=================== >Received: " + message);
-        Thread.sleep(1000); // simulated delay
+        // Thread.sleep(1000); // simulated delay
         for(int i =0;i<Squares.length;i++){
             if(Squares[i].getId()==message)
             Squares[i].setVote(Squares[i].getVote()+1);
