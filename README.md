@@ -9,7 +9,7 @@ file , that is inside src-->main-->java-->com-->example-->server.
 ##once youre running , you will see this message pop up : 
 ![image](https://user-images.githubusercontent.com/80175752/153445247-9fbfb950-8bf2-4927-81a5-9dd145dc9b5f.png)
 
-## and you will be able to start recieving receiving
+## and you will be able to start recieving requests
 ![image](https://user-images.githubusercontent.com/80175752/153445721-23532159-510b-4519-a35b-fb6b55962c54.png)
 
 ## in any case that you wish to open more instances of the same client , you need to add the following lines to <WebSocket.java>: 
