@@ -19,19 +19,19 @@ public class Square {
 
     private int id = 0;
     private String color="";
-    private int vote = 0;
+    private int votes = 0;
     
 
 
-    public Square(String color, int vote, int id) {
+    public Square(String color, int votes, int id) {
         this.color = color;
-        this.vote = vote;
+        this.votes = votes;
         this.id = id;
     }
 
 
     public void setVote(int vote) {
-        this.vote = vote;
+        this.votes = vote;
     }
 
     public int getId() {
@@ -39,7 +39,7 @@ public class Square {
     }
 
     public int getVote() {
-        return vote;
+        return votes;
     }
     
     public String getColor(){

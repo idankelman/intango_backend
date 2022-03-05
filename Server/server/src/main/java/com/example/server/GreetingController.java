@@ -1,5 +1,9 @@
 package com.example.server;
 
+import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
@@ -13,19 +17,18 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class GreetingController {
     
-    Square [] Squares = {
-        new Square("#45858C", 0, 0),
-        new Square("#A0D9D9", 0, 1),
-        new Square("#D9C589", 0, 2),
-        new Square("#BF9765", 0, 3),
-        new Square("#D9B70D", 0, 4),
-        new Square("#253C59", 0, 5),
-        new Square("#8DC3F2", 0, 6),
-        new Square("#BF1131", 0, 7),
-        new Square("##F25E7A", 0, 8),
-        new Square("#F28066", 0, 9),
-        new Square("white", 0, 10)
-    };
+    public ArrayList<Square> Squares;
+    public String [] colors;
+   
+
+    public GreetingController()
+    {
+        colors = new String[]{"#45858C", "#A0D9D9", "#D9C589", "#BF9765", "#D9B70D", "#253C59", "#BF1131", "#F25E7A", "#F28066", "white"};
+        Squares = new ArrayList<Square>();
+        for (int i = 0; i < colors.length; i++)
+            Squares.add(new Square(colors[i], 0, i));
+        
+    }
 
 
 
@@ -41,11 +44,60 @@ public class GreetingController {
     
     public Square [] Square(int message) throws Exception {
         System.out.println("=================== >Received: " + message);
-        // Thread.sleep(1000); // simulated delay
-        for(int i =0;i<Squares.length;i++){
-            if(Squares[i].getId()==message)
-            Squares[i].setVote(Squares[i].getVote()+1);
+        for(int i =0;i<Squares.size();i++){
+            Square sq = Squares.get(i);
+            if(sq.getId()==message)
+                sq.setVote(sq.getVote()+1);
         }
-        return this.Squares;
+        return toArray();
+    }
+
+
+    @MessageMapping("/newSquare")
+    @SendTo("/topic/greetings")
+
+    public Square [] newSquare(String newSquares) throws Exception {
+
+        if(newSquares==null)
+            return toArray();
+
+        try{
+            System.out.println(newSquares);
+            JSONObject obj = new JSONObject(newSquares);
+            JSONArray jsonArray = obj.getJSONArray("squares");
+            // System.out.println("=================== >Received");
+            // JSONArray jsonArray2 = new JSONArray(newSquares);
+            System.out.println("=================== >Received2");
+            for(int i =0;i<jsonArray.length();i++)
+            {
+                JSONObject curr = jsonArray.getJSONObject(i);
+                Square sq = new Square(curr.getString("color"), curr.getInt("votes"), curr.getInt("id"));
+
+                System.out.println(sq.toString());
+                if(!this.Squares.contains(sq))
+                {
+                    this.Squares.add(sq);
+                }
+                else
+                {
+                    System.out.println("Square already exists");
+                }
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println("Error: " + e.getMessage());
+            return toArray();
+        }
+        return toArray();
+
+    }
+
+    private Square [] toArray()
+    {
+        Square[] ret = new Square[Squares.size()];
+        for(int i =0;i<Squares.size();i++)
+            ret[i]= Squares.get(i);
+        return ret;
     }
 }
