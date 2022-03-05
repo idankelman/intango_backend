@@ -74,7 +74,7 @@ public class GreetingController {
                 Square sq = new Square(curr.getString("color"), curr.getInt("votes"), curr.getInt("id"));
 
                 System.out.println(sq.toString());
-                if(!this.Squares.contains(sq))
+                if(!Contains(sq.getId()))
                 {
                     this.Squares.add(sq);
                 }
@@ -91,6 +91,16 @@ public class GreetingController {
         }
         return toArray();
 
+    }
+
+    private boolean Contains(int id)
+    {
+        for (int i=0;i<this.Squares.size();i++)
+        {
+            if(this.Squares.get(i).getId()==id)
+                return true;
+        }
+        return false;
     }
 
     private Square [] toArray()
