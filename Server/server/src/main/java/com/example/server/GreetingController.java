@@ -93,6 +93,37 @@ public class GreetingController {
 
     }
 
+
+    @MessageMapping("/EditSquare")
+    @SendTo("/topic/greetings")
+
+    public Square [] EditSquare(String EditSquare) throws Exception {
+        
+        if(EditSquare==null)
+            return toArray();
+        try
+        {
+            System.out.println(EditSquare);
+            JSONObject obj = new JSONObject(EditSquare);
+            for (int i = 0; i < Squares.size(); i++)
+            {
+                Square sq = Squares.get(i);
+                if(sq.getId()==obj.getInt("id"))
+                {
+                    sq.setVote(obj.getInt("votes"));
+                    sq.setColor(obj.getString("color"));
+                    return toArray();
+                }
+            }
+        }
+        catch(Exception e){
+            return toArray();
+        }
+        
+        return 
+            toArray();
+    }
+
     private boolean Contains(int id)
     {
         for (int i=0;i<this.Squares.size();i++)

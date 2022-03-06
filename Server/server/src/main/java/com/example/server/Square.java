@@ -34,6 +34,10 @@ public class Square {
         this.votes = vote;
     }
 
+    public void setColor(String color) {
+        this.color = color;
+    }
+
     public int getId() {
         return id;
     }
